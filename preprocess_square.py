@@ -4,9 +4,8 @@ import math
 import os
 
 show_Image = False
-
-data_path = r"../1124_train_photo"
-target_path = "%s_preprocessed" % data_path
+data_path = r"/home/pwrai/1124_train_photo"
+target_path = "%s_preprocessed_square" % data_path
  
 
 def panelAbstract(srcImage):
@@ -90,9 +89,9 @@ def panelAbstract(srcImage):
         w = w / 8  # 寬度分為8等分
 
         # 將沒有外圍輪廓的咖啡粉存入panelImg，固定照片大小，因此h以w代替
-        panelImg = srcImage[int(y + 2 * w):int(y + 6 * w), int(x + w):int(x + 7 * w), :]
+        panelImg = srcImage[int(y + 2 * w):int(y + 6 * w), int(x +2 * w):int(x + 6 * w), :]
         # 印出圖片真實大小
-        print("Image Size:", 4 * w * umsize, " um * ", 6 * w * umsize, " um")
+        print("Image Size:", 4 * w * umsize, " um * ", 4 * w * umsize, " um")
     return panelImg
 
 
@@ -159,15 +158,24 @@ if __name__ == "__main__":
 
                         print(rstImage.shape)
 
-                        rstImage = cv2.resize(rstImage, (1600, 1066), interpolation=cv2.INTER_LINEAR)
+                        rstImage = cv2.resize(rstImage, (1024, 1024), interpolation=cv2.INTER_LINEAR)
                         print(rstImage.shape)
 
                         rstImage = hist_equal_lab(rstImage)
-
+                        
                         # 印出結果
-                        filename = '%s_result_%d.%s' % (name.split('.')[0], i, name.split('.')[-1])
-                        print('new_Filename: ' + filename)
-                        print("Save in path: ", os.path.join(target_dir, filename))
-                        if cv2.imwrite(os.path.join(target_dir, filename), rstImage):
-                            print("Write Images Successfully") 
+                        notcut_filename = '%s_result_%d' % (name.split('.')[0], i)
+                        print('notcut_Filename: ' + notcut_filename)
+                        print("Save in path: ", os.path.join(target_dir, notcut_filename))
+
+                        for  i in range(4):
+                            for j in range(4):
+
+                                cutImage = rstImage[int(i*256):int((i+1)*256), int(j*256):int((j+1)*256)]
+                                filename = notcut_filename + '[%d][%d].%s' %(i,j, name.split('.')[-1])
+                                print('new_Filename: ' + filename)
+
+                                if cv2.imwrite(os.path.join(target_dir, filename), cutImage):
+                                    print("Write Images Successfully") 
+                        
                     print("Error Files:", error_files)
