@@ -16,6 +16,12 @@ National Chung Cheng University, CS
 4. Calculate optimal pouring water curve by variables from above step.
 5. Control robotic arm to brew pour-over-coffee with curve.
 
+**structure**
+---------------------------------------------
+
+**Members**
+---------------------------------------------
+
 **Members**
 ---------------------------------------------
 ### 國立中正大學 資訊工程學系
