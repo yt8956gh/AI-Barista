@@ -19,7 +19,9 @@ National Chung Cheng University, CS
 **structure**
 ---------------------------------------------
 resnet2:初始版本
+
 resnet_square:使用小張方形照片訓練
+
 resnet_ls:使用大張方形照片訓練
 
 **Members**
